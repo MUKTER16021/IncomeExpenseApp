@@ -12,23 +12,32 @@ namespace IncomeExpenseAppCoreMVC.Controllers
     public class LoginController : Controller
     {
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
         [HttpGet]
         public IActionResult LoginToFrom()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult loginToFrom(Login login)
+        public IActionResult LoginToFrom(Login login)
         {
             LoginManager loginManage = new LoginManager();
             Login loginInfo = loginManage.LoginInfo(login);
             ViewBag.LoginInfo = loginInfo;
+            //if (loginInfo.Designation == null)
+            //{
+            //    ViewBag.Message = "Not match email or password";
+            //    return View();
+            //}
+            //else if (loginInfo.Designation == "Jr Accountant")
+            //{
+            //    return RedirectToAction("IncomeInfo", "Income");
+            //}
+            //return RedirectToAction("ExpenseInfo", "Expense");
+
+            //when finish income and expense then comment out
             return View();
+
+
         }
     }
 }

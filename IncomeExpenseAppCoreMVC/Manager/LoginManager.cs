@@ -12,7 +12,7 @@ namespace IncomeExpenseAppCoreMVC.Manager
         private LoginGateway loginGateway;
         public LoginManager()
         {
-            loginGateway=new LoginGateway();
+            loginGateway = new LoginGateway();
         }
 
         public Login LoginInfo(Login login)

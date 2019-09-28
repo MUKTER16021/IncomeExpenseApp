@@ -15,17 +15,17 @@ namespace IncomeExpenseAppCoreMVC.Gateway
         public Login LoginInfo(Login login)
         {
             string connectionString = ConnectionUtility.ConnectionString;
-            SqlConnection connection=new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
 
-            string query = "SELECT * Registration_tbl WHERE Email='" + login.Email+"',Password='"+login.Password+"'";
-            SqlCommand command=new SqlCommand(query,connection);
+            string query = "SELECT * FROM RegistrationEmployee WHERE Email='" + login.Email + "' AND Password='" + login.Password + "' ";
+            SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
-           
-            Models.Login loginData=new Login();
+
+            Models.Login loginData = new Login();
             while (reader.Read())
             {
-                loginData.Id =(int) reader["Id"];
+                loginData.Id = (int)reader["Id"];
                 loginData.Name = reader["Name"].ToString();
                 loginData.Email = reader["Email"].ToString();
                 loginData.Password = reader["Password"].ToString();
