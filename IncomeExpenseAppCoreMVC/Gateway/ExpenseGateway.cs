@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IncomeExpenseAppCoreMVC.Manager
+namespace IncomeExpenseAppCoreMVC.Gateway
 {
-    public class Expence
+    public class ExpenseGateway
     {
     }
 }

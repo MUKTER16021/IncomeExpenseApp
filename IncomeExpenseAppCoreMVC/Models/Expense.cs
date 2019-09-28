@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IncomeExpenseAppCoreMVC.Models
 {
-    public class Income
+    public class Expense
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }

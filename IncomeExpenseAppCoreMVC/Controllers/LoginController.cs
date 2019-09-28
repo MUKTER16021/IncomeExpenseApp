@@ -12,10 +12,10 @@ namespace IncomeExpenseAppCoreMVC.Controllers
     public class LoginController : Controller
     {
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         [HttpGet]
         public IActionResult LoginToFrom()
