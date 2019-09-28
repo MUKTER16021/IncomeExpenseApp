@@ -8,9 +8,9 @@ namespace IncomeExpenseAppCoreMVC.Controllers
 {
     public class ExpenseController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

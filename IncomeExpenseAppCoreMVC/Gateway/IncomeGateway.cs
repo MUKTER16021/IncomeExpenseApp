@@ -10,9 +10,9 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 {
     public class IncomeGateway
     {
-        private string connectionString = "";
+       private string connectionString = @"server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;database=IncomExpenseDB; integrated security=true;";
 
-       
+
         public bool Save(Income income)
         {
             SqlConnection connection = new SqlConnection(connectionString);
