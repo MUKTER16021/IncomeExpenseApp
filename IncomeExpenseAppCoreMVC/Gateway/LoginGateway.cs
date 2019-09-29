@@ -11,9 +11,9 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 {
     public class LoginGateway
     {
-
+     private readonly string connectionString = @"server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;database=IncomExpenseDB; integrated security=true;";
         public Login LoginInfo(Login login)
-        {
+        { 
             string connectionString = ConnectionUtility.ConnectionString;
             SqlConnection connection = new SqlConnection(connectionString);
 
