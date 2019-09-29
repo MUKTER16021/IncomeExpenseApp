@@ -3,13 +3,13 @@
 namespace IncomeExpenseAppCoreMVC.Gateway
 {
 
-    public class ExpenseGateway
-    { 
-        private string connectionString = @"server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;database=IncomExpenseDB; integrated security=true;";
-        SqlConnection connetion = new SqlConnection();
+    public class ExpenseGateway { 
+       private string connString = @"server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;database=IncomExpenseDB; integrated security=true;";
+        SqlConnection Connetion = new SqlConnection(connectionString:conString);
         string query;
 
         public SqlDataReader Reader;
+        private static string conString;
 
         public bool Save(Models.Expense expense)
         {
