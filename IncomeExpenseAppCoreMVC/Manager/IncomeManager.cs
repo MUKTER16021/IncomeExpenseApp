@@ -10,7 +10,12 @@ namespace IncomeExpenseAppCoreMVC.Manager
     
     public class IncomeManager
     {
-        IncomeGateway incomeGateway=new IncomeGateway();
+        private IncomeGateway incomeGateway;
+
+        public IncomeManager()
+        {
+            incomeGateway = new IncomeGateway();
+        }
 
         public string Save(Income income)
         {
@@ -21,6 +26,14 @@ namespace IncomeExpenseAppCoreMVC.Manager
             }
 
             return "Income Save failded";
+        }
+
+
+        public List<Income> PendingList()
+        {
+            List<Income> pendingList = incomeGateway.PendingList();
+
+            return pendingList;
         }
 
     }

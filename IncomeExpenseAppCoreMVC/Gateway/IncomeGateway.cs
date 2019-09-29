@@ -24,6 +24,33 @@ namespace IncomeExpenseAppCoreMVC.Gateway
             connection.Close();
             return rowEffect > 0;
         }
+
+        public List<Income> PendingList()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT * FROM Income WHERE ApprovalStatus='No'";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<Income> pendingList=new List<Income>();
+            while (reader.Read())
+            {
+                Income pendingIncome=new Income();
+                pendingIncome.Id = (int)reader["Id"];
+                pendingIncome.Amount = (decimal)reader["Amount"];
+                pendingIncome.ApproveStatus = reader["ApprovalStatus"].ToString();
+                pendingIncome.BankName = reader["BankName"].ToString();
+                pendingIncome.CheckNo = reader["CheckNo"].ToString();
+                pendingIncome.Date =(DateTime) reader["Date"];
+                pendingIncome.PaymentType = reader["PaymentType"].ToString();
+                pendingIncome.Particular = reader["Particular"].ToString();
+                
+                pendingList.Add(pendingIncome);
+            }
+
+            return pendingList;
+
+        }
     }
 
     
