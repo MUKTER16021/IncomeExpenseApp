@@ -2,28 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IncomeExpenseAppCoreMVC.Manager;
+using IncomeExpenseAppCoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IncomeExpenseAppCoreMVC.Controllers
 {
     public class ExpenseController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-        //public IActionResult Expense(decimal amount,string paymentType,string checkNo,string bankName,DateTime date,string particular,string approvalStatus)
-        //{
+        private ExpenseManager expenseManager;
+        public ExpenseController()
+        {
+            expenseManager = new ExpenseManager();
+        }
+        [HttpGet]
+        public IActionResult Save()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Save(Expense expense)
+        {
+            expense.ApproveStatus = "No";
+            string message = expenseManager.Save(expense);
+            ViewBag.Message = message;
+            return View();
+        }
 
-        //    Models.Expense expense = new Models.Expense();
-        //    expense.Amount = amount;
-        //    expense.PaymentType = paymentType;
-        //    expense.CheckNo = checkNo;
-        //    expense.BankName = bankName;
-        //    expense.Date = date;
-        //    expense.Particular = particular;
-        //    expense.ApproveStatus = approvalStatus;
-        //    return View(expense);
-        //}
+
+        [HttpGet]
+        public IActionResult ExpensePendingList()
+        {
+            List<Expense> pendingList = expenseManager.PendingList();
+            ViewBag.PendingList = pendingList;
+            // return View(pendingList);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ExpensePendingList(Expense expenseForApprove)
+        {
+            expenseManager.UpdateApproveStatus(expenseForApprove.Id);
+            return RedirectToAction("ExpensePendingList");
+        }
     }
 }

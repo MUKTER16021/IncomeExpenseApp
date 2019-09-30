@@ -2,24 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IncomeExpenseAppCoreMVC.Gateway;
+using IncomeExpenseAppCoreMVC.Models;
 
 namespace IncomeExpenseAppCoreMVC.Manager
 {
     public class ExpenseManager
     {
-        Gateway.ExpenseGateway expenseGateway = new Gateway.ExpenseGateway();
-        //public string save(Models.Expense expense)
-        //{
-        //    bool rowAffected = expenseGateway.Save(expense);
-        //    if (rowAffected)
-        //    {
-        //        return "Congrates ! your expense, Expensed Successfully";
-        //    }
-        //    else
-        //    {
-        //        return "Expensed failled please try Again";
-        //    }
-        //}
+        private ExpenseGateway expenseGateway;
+        public ExpenseManager()
+        {
+            expenseGateway=new ExpenseGateway();
+        }
+        public string Save(Expense expense)
+        {
+            bool rowEffect = expenseGateway.Save(expense);
+            if (rowEffect)
+            {
+                return "Income Save Successfully";
+            }
+
+            return "Income Save failded";
+        }
+
+
+        public List<Expense> PendingList()
+        {
+            List<Expense> pendingList = expenseGateway.PendingList();
+
+            return pendingList;
+        }
+
+        public void UpdateApproveStatus(int id)
+        {
+            expenseGateway.PendingApprove(id);
+        }
 
 
     }

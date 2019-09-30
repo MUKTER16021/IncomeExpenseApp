@@ -1,0 +1,65 @@
+﻿@model IncomeExpenseAppCoreMVC.Models.Expense
+
+@{
+    ViewData["Title"] = "ExpensePendingList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    <div align="center"><h2>Pending Expense</h2></div>
+    <div align="center">
+        <table class="table table-hover " id="pendingListTable">
+            <thead>
+            <tr>
+                <th scope="col">#SL</th>
+                <th scope="col">Approve</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Cash/Check</th>
+                <th scope="col">Particular</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                int sl = 1;
+                List<Expense> list = ViewBag.PendingList;
+                if (list.Count > 0)
+                {
+                    foreach (var pendingList in list)
+                    {
+                        <tr>
+                            <th scope="row">@sl</th>
+                            <td>
+                                @*<input type="submit" value="Approve" name="@pendingList.Id" />*@
+                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="@pendingList.Id">
+                            </td>
+                            <td>@pendingList.Date</td>
+                            <td>@pendingList.Amount</td>
+                            <td>@pendingList.PaymentType</td>
+                            <td>@pendingList.Particular</td>
+                        </tr>
+                        sl++;
+                    }
+
+                }
+                else
+                {
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <p style="">Pending Expense not found</p>
+                        </td>
+                    </tr>
+                }
+
+            }
+            </tbody>
+        </table>
+    </div>
+    <div align="center">
+        <button type="button" class="btn btn-secondary"><h4>Save</h4></button>
+    </div>
+
+</form>

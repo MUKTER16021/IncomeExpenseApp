@@ -23,19 +23,19 @@ namespace IncomeExpenseAppCoreMVC.Controllers
             LoginManager loginManage = new LoginManager();
             Login loginInfo = loginManage.LoginInfo(login);
             ViewBag.LoginInfo = loginInfo;
-            //if (loginInfo.Designation == null)
-            //{
-            //    ViewBag.Message = "Not match email or password";
-            //    return View();
-            //}
-            //else if (loginInfo.Designation == "Jr Accountant")
-            //{
-            //    return RedirectToAction("IncomeInfo", "Income");
-            //}
-            //return RedirectToAction("ExpenseInfo", "Expense");
+            if (loginInfo.Designation == null)
+            {
+                ViewBag.Message = "Not match email or password";
+                return View();
+            }
+            else if (loginInfo.Designation == "Jr Accountant")
+            {
+                return RedirectToAction("PendingList", "Income");
+            }
+            return RedirectToAction("Save", "income");
 
             //when finish income and expense then comment out
-            return View();
+            //return View();
 
 
         }
