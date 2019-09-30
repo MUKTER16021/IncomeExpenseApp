@@ -4,80 +4,61 @@
     ViewData["Title"] = "PendingList";
 }
 
-<h2>PendingList</h2>
-@*<div>
-    <table>
-        @{
-            List<Income> list = ViewBag.PendingList;
-            foreach (var t in list)
-            {
-                <tr>
-                    <td>@t.Amount</td>
-                    <td>@t.ApproveStatus</td>
-                    <td>@t.BankName</td>
-                    <td>@t.Date</td>
-                    <td>@t.CheckNo</td>
-                </tr>
-            }
-        }
-    </table>
-</div>*@
+<form method="post">
+    <div align="center"><h2>Pending Income</h2></div>
+    <div align="center">
+        <table class="table table-hover " id="pendingListTable">
+            <thead>
+            <tr>
+                <th scope="col">#SL</th>
+                <th scope="col">Approve</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Cash/Check</th>
+                <th scope="col">Particular</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                int sl = 1;
+                List<Income> list = ViewBag.PendingList;
+                if (list.Count > 0)
+                {
+                    foreach (var pendingList in list)
+                    {
+                        <tr>
+                            <th scope="row">@sl</th>
+                            <td>
+                                @*<input type="submit" value="Approve" name="@pendingList.Id" />*@
+                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="@pendingList.Id">
+                            </td>
+                            <td>@pendingList.Date</td>
+                            <td>@pendingList.Amount</td>
+                            <td>@pendingList.PaymentType</td>
+                            <td>@pendingList.Particular</td>
+                        </tr>
+                        sl++;
+                    }
 
-<div>
-    <h4>Income</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PaymentType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CheckNo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CheckNo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BankName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BankName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Particular)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Particular)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ApproveStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ApproveStatus)
-        </dd>
-    </dl>
-</div>
-@*<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>*@
+                }
+                else
+                {
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <p style="">Pending income not found</p></td>
+                    </tr>
+                }
+               
+            }
+            </tbody>
+        </table>
+    </div>
+    <div align="center">
+        <button type="button" class="btn btn-secondary"><h4>Save</h4></button>
+    </div>
+    
+</form>
+

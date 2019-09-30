@@ -10,12 +10,12 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 {
     public class IncomeGateway
     {
-       private string connectionString = @"server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;database=IncomExpenseDB; integrated security=true;";
+      // private string connectionString = @"server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;database=IncomExpenseDB; integrated security=true;";
 
 
         public bool Save(Income income)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
             string query = "INSERT INTO Income(ApprovalStatus,Date,Amount,PaymentType,CheckNo,BankName,Particular)" +
                            "VALUES('" + income.ApproveStatus + "','" + income.Date + "','"+income.Amount+"','"+income.PaymentType+"','"+income.CheckNo+"','"+income.BankName+"','"+income.Particular+"')";
             SqlCommand command = new SqlCommand(query, connection);
@@ -27,7 +27,7 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 
         public List<Income> PendingList()
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
             string query = "SELECT * FROM Income WHERE ApprovalStatus='No'";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
@@ -50,6 +50,16 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 
             return pendingList;
 
+        }
+
+        public void PendingApprove(int id)
+        {
+            SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
+            string query = "UPDATE Income SET ApprovalStatus='Yes' Where Id='"+id+"'";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 

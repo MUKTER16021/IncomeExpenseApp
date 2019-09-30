@@ -36,5 +36,9 @@ namespace IncomeExpenseAppCoreMVC.Manager
             return pendingList;
         }
 
+        public void UpdateApproveStatus(int id)
+        {
+            incomeGateway.PendingApprove(id);
+        }
     }
 }
