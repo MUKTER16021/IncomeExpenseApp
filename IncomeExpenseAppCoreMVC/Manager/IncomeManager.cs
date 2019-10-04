@@ -36,9 +36,15 @@ namespace IncomeExpenseAppCoreMVC.Manager
             return pendingList;
         }
 
-        public void UpdateApproveStatus(int id)
+        public string UpdateApproveStatus(List<Income> incomes)
         {
-            incomeGateway.PendingApprove(id);
+            bool isUpdate = incomeGateway.PendingApprove(incomes);
+            if (isUpdate)
+            {
+                return "Approve Successfully done ";
+            }
+
+            return "Approve failed ";
         }
     }
 }

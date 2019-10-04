@@ -52,14 +52,32 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 
         }
 
-        public void PendingApprove(int id)
+        public bool PendingApprove(List<Income> incomes)
         {
-            SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
-            string query = "UPDATE Income SET ApprovalStatus='Yes' Where Id='"+id+"'";
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            bool isUpdated = false;
+            int row = 0;
+
+            foreach (var incomeId in incomes)
+            {
+                SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
+                string query = "UPDATE Income SET ApprovalStatus='Yes' Where Id='" + incomeId.Id + "'";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                row = command.ExecuteNonQuery();
+                if (row > 0)
+                {
+                    isUpdated = true;
+                }
+                else
+                {
+                    isUpdated = false;
+                    break;
+                }
+
+                connection.Close();
+            }
+
+            return isUpdated;
         }
     }
 

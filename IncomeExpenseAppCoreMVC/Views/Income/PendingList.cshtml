@@ -9,56 +9,97 @@
     <div align="center">
         <table class="table table-hover " id="pendingListTable">
             <thead>
-            <tr>
-                <th scope="col">#SL</th>
-                <th scope="col">Approve</th>
-                <th scope="col">Date</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Cash/Check</th>
-                <th scope="col">Particular</th>
-            </tr>
+                <tr>
+                    <th scope="col">#SL</th>
+                    <th scope="col">Approve</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Cash/Check</th>
+                    <th scope="col">Particular</th>
+                </tr>
             </thead>
-            <tbody>
-            @{
-                int sl = 1;
-                List<Income> list = ViewBag.PendingList;
-                if (list.Count > 0)
-                {
-                    foreach (var pendingList in list)
+            <tbody id="tableBody">
+                @{
+                    int sl = 1;
+                    int index = 0;
+                    List<Income> list = ViewBag.PendingList;
+                    if (list.Count > 0)
+                    {
+                        foreach (var pendingList in list)
+                        {
+                            <tr>
+                                <th scope="row">@sl</th>
+                                <td>
+
+                                    @*<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="incomes[@index].Id" value="@pendingList.Id">*@
+                                    <input type="checkbox" class="custom-control-input" id="check_@pendingList.Id" value="@pendingList.Id">
+                                </td>
+                                <td>@pendingList.Date</td>
+                                <td>@pendingList.Amount</td>
+                                <td>@pendingList.PaymentType</td>
+                                <td>@pendingList.Particular</td>
+                            </tr>
+                            sl++;
+                            index++;
+                        }
+
+                    }
+                    else
                     {
                         <tr>
-                            <th scope="row">@sl</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-                                @*<input type="submit" value="Approve" name="@pendingList.Id" />*@
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="@pendingList.Id">
+                                <p style="">Pending income not found</p>
                             </td>
-                            <td>@pendingList.Date</td>
-                            <td>@pendingList.Amount</td>
-                            <td>@pendingList.PaymentType</td>
-                            <td>@pendingList.Particular</td>
                         </tr>
-                        sl++;
                     }
 
                 }
-                else
-                {
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <p style="">Pending income not found</p></td>
-                    </tr>
-                }
-               
-            }
             </tbody>
         </table>
     </div>
     <div align="center">
-        <button type="button" class="btn btn-secondary"><h4>Save</h4></button>
+        <button type="button" id="btn" onclick="Save()" class="btn btn-secondary"><h4>Approve</h4></button>
+        @*<input type="submit" value="Approve" class="btn btn-success"/>*@
     </div>
-    
+    <div align="center"> @ViewBag.UpdateMessage </div>
+
 </form>
+@section Scripts{
+    <script>
+
+        function Save() {
+            var values = [];
+            debugger
+            $("#tableBody tr input[type=checkbox]").each(function (key, value) {
+                debugger
+                var checkedId = $(value).attr("Id");
+                var split = checkedId.split('_');
+                var id = split[1];
+                var isChecked = $("#" + checkedId).is(":checked", true);
+                if (isChecked) {
+                    values.push(id);
+                }
+
+
+            });
+            if (values.length !== 0) {
+                $.ajax({
+                    url: "/Income/Update",
+                    type: "POST",
+                    data: { values: values },
+                    success: function (response) {
+                        alert(response);
+                        window.location.reload();
+                    }
+                });
+            } else {
+                alert("Please select data!!!");
+            }
+
+        }
+    </script>
+}
 

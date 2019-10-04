@@ -39,11 +39,26 @@ namespace IncomeExpenseAppCoreMVC.Controllers
            return View();
         }
 
-        [HttpPost]
-        public IActionResult PendingList( Income incomeForApprove)
+        //[HttpPost]
+        //public IActionResult PendingList( Income incomeForApprove)
+        //{
+        //   incomeManager.UpdateApproveStatus(incomeForApprove.Id);
+        //   return RedirectToAction("PendingList");
+        //}
+
+        public JsonResult Update(string[] values)
         {
-           incomeManager.UpdateApproveStatus(incomeForApprove.Id);
-           return RedirectToAction("PendingList");
+            List<Income> incomes = new List<Income>();
+            foreach (var id in values)
+            {
+                Income income = new Income();
+                income.Id = Convert.ToInt32(id);
+                incomes.Add(income);
+            }
+
+            string message = incomeManager.UpdateApproveStatus(incomes);
+
+            return Json(message);
         }
 
 
