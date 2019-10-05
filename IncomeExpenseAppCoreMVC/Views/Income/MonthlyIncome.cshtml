@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "MonthlyIncome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/StyleForShow.css" type="text/css" />
+<div class="container">
+    <form id="contact" action="" method="post">
+
+
+        <div>
+            <div align="center"><h3 style="color:burlywood">Monthly Report</h3></div>
+            <div align="center">
+                <fieldset>
+
+                    Select Month :
+                    <select name="Month">
+                        <option value="#">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    Select Year :
+                    <select name="Year">
+                        <option> Select Year</option>
+                        @{
+                            List<string> yearList = ViewBag.YearList;
+                            if (yearList != null)
+                            {
+                                foreach (var year in yearList)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            }
+                        }
+                    </select>
+
+                </fieldset>
+            </div>
+            <div align="center">
+                <fieldset>
+                    <input type="submit" value="Show" id="contact-submit" data-submit="...Sending" />
+                </fieldset>
+            </div>
+        </div>
+        <div align="center">
+            <table class="table table-hover " id="pendingListTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#SL</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Cash/Check</th>
+                        <th scope="col">Particular</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @{
+                        int sl = 0;
+
+                        List<Income> list = ViewBag.MonthlyReport;
+                        if (list != null && list.Count > 0)
+                        {
+                            foreach (var monthlyReport in list)
+                            {
+                                sl++;
+                                <tr>
+                                    <th scope="row">@sl</th>
+
+                                    <td>@monthlyReport.Date</td>
+                                    <td>@monthlyReport.Amount</td>
+                                    <td>@monthlyReport.PaymentType</td>
+                                    <td>@monthlyReport.Particular</td>
+                                </tr>
+
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <p style=""> Income not found</p>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                    <tr>
+                        <td></td>
+                        <td>Total Income</td>
+                        <td> @ViewBag.TotalIncome</td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <h4>@sl  Record found</h4>
+        </div>
+        <div align="center">
+            @if (ViewBag.MonthlyReport != null)
+            {
+                <input type="submit" value="PDF" />
+            }
+        </div>
+    </form>
+</div>
+

@@ -46,5 +46,14 @@ namespace IncomeExpenseAppCoreMVC.Manager
 
             return "Approve failed ";
         }
+        public List<string> GetYearList()
+        {
+            return incomeGateway.GetYear();
+        }
+
+        public List<Income> MonthlyIncome(string month, string year)
+        {
+            return incomeGateway.MonthlyReport(month, year);
+        }
     }
 }

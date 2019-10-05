@@ -33,9 +33,23 @@ namespace IncomeExpenseAppCoreMVC.Manager
             return pendingList;
         }
 
-        public void UpdateApproveStatus(int id)
+        public string UpdateApproveStatus(List<Expense> expenses)
         {
-            expenseGateway.PendingApprove(id);
+            bool isUpdate = expenseGateway.PendingApprove(expenses);
+            if (isUpdate)
+            {
+                return "Approve Successfully done ";
+            }
+
+            return "Approve failed ";
+        }
+        public List<string> GetYearList()
+        {
+            return expenseGateway.GetYear();
+        }
+        public List<Expense> MonthlyIncome(string month, string year)
+        {
+            return expenseGateway.MonthlyReport(month, year);
         }
 
 

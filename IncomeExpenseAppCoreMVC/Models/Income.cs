@@ -15,5 +15,7 @@ namespace IncomeExpenseAppCoreMVC.Models
         public DateTime Date { get; set; }
         public string Particular { get; set; }
         public string ApproveStatus { get; set; }
+        public string Month { get; set; }
+        public string Year { get; set; }
     }
 }

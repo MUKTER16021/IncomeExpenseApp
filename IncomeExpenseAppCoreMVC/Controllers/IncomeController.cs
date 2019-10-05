@@ -46,7 +46,7 @@ namespace IncomeExpenseAppCoreMVC.Controllers
         //   return RedirectToAction("PendingList");
         //}
 
-        public JsonResult Update(string[] values)
+        public JsonResult Approve(string[] values)
         {
             List<Income> incomes = new List<Income>();
             foreach (var id in values)
@@ -60,6 +60,25 @@ namespace IncomeExpenseAppCoreMVC.Controllers
 
             return Json(message);
         }
+
+        [HttpGet]
+        public IActionResult MonthlyIncome()
+        {
+            ViewBag.YearList = incomeManager.GetYearList();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult MonthlyIncome(string month, string year)
+        {
+            List<Income> monthlyReport = incomeManager.MonthlyIncome(month, year);
+            decimal totalIncome = CalculateAmount.Calculate(monthlyReport);
+            ViewBag.TotalIncome = totalIncome;
+            ViewBag.MonthlyReport = monthlyReport;
+            ViewBag.YearList = incomeManager.GetYearList();
+            return View();
+        }
+
 
 
 

@@ -5,61 +5,109 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post">
-    <div align="center"><h2>Pending Expense</h2></div>
-    <div align="center">
-        <table class="table table-hover " id="pendingListTable">
-            <thead>
-            <tr>
-                <th scope="col">#SL</th>
-                <th scope="col">Approve</th>
-                <th scope="col">Date</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Cash/Check</th>
-                <th scope="col">Particular</th>
-            </tr>
-            </thead>
-            <tbody>
-            @{
-                int sl = 1;
-                List<Expense> list = ViewBag.PendingList;
-                if (list.Count > 0)
-                {
-                    foreach (var pendingList in list)
-                    {
-                        <tr>
-                            <th scope="row">@sl</th>
-                            <td>
-                                @*<input type="submit" value="Approve" name="@pendingList.Id" />*@
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="@pendingList.Id">
-                            </td>
-                            <td>@pendingList.Date</td>
-                            <td>@pendingList.Amount</td>
-                            <td>@pendingList.PaymentType</td>
-                            <td>@pendingList.Particular</td>
-                        </tr>
-                        sl++;
-                    }
+<link rel="stylesheet" href="~/css/StyleForShow.css" type="text/css" />
+<div class="container">
+    <form id="contact" action="" method="post">
+        <div>
+            <div align="center"><h3 style="color:burlywood">Expense Pending List</h3></div>
+        </div>
 
-                }
-                else
-                {
+
+
+        <div align="center">
+            <table class="table table-hover " id="pendingListTable">
+                <thead>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <p style="">Pending Expense not found</p>
-                        </td>
+                        <th scope="col">#SL</th>
+                        <th scope="col">Approve</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Cash/Check</th>
+                        <th scope="col">Particular</th>
                     </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @{
+                        int sl = 1;
+                        int index = 0;
+                        List<Expense> list = ViewBag.PendingList;
+                        if (list.Count > 0)
+                        {
+                            foreach (var pendingList in list)
+                            {
+                                <tr>
+                                    <th scope="row">@sl</th>
+                                    <td>
+
+                                        @*<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="incomes[@index].Id" value="@pendingList.Id">*@
+                                        <input type="checkbox" class="custom-control-input" id="check_@pendingList.Id" value="@pendingList.Id">
+                                    </td>
+                                    <td>@pendingList.Date.ToShortDateString()</td>
+                                    <td>@pendingList.Amount</td>
+                                    <td>@pendingList.PaymentType</td>
+                                    <td>@pendingList.Particular</td>
+                                </tr>
+                                sl++;
+                                index++;
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <p style="">Pending income not found</p>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div align="center">
+            <button type="button" id="btn" onclick="Save()" class="btn btn-secondary"><h4>Approve</h4></button>
+            @*<input type="submit" value="Approve" class="btn btn-success"/>*@
+        </div>
+        <div align="center"> @ViewBag.UpdateMessage </div>
+    </form>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        function Save() {
+            var values = [];
+            debugger
+            $("#tableBody tr input[type=checkbox]").each(function (key, value) {
+                debugger
+                var checkedId = $(value).attr("Id");
+                var split = checkedId.split('_');
+                var id = split[1];
+                var isChecked = $("#" + checkedId).is(":checked", true);
+                if (isChecked) {
+                    values.push(id);
                 }
 
-            }
-            </tbody>
-        </table>
-    </div>
-    <div align="center">
-        <button type="button" class="btn btn-secondary"><h4>Save</h4></button>
-    </div>
 
-</form>
+            });
+            if (values.length !== 0) {
+                $.ajax({
+                    url: "/Expense/Approve",
+                    type: "POST",
+                    data: { values: values },
+                    success: function (response) {
+                        alert(response);
+                        window.location.reload();
+                    }
+                });
+            } else {
+                alert("Please select data!!!");
+            }
+
+        }</script>
+}

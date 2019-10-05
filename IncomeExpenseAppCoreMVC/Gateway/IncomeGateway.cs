@@ -79,6 +79,59 @@ namespace IncomeExpenseAppCoreMVC.Gateway
 
             return isUpdated;
         }
+
+        public List<string> GetYear()
+        {
+            SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
+            string query = "SELECT Date FROM Income";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<string> yearList = new List<string>();
+            while (reader.Read())
+            {
+                DateTime date = (DateTime)reader["Date"];
+
+                if (yearList.Contains(date.Year.ToString()) != true)
+                {
+                    yearList.Add(date.Year.ToString());
+                }
+            }
+            return yearList;
+
+        }
+
+        public List<Income> MonthlyReport(string month, string year)
+        {
+            SqlConnection connection = new SqlConnection(ConnectionUtility.ConnectionString);
+            string query = "SELECT * FROM Income WHERE ApprovalStatus='Yes'";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<Income> monthlyReport = new List<Income>();
+            while (reader.Read())
+            {
+                DateTime date = (DateTime)reader["Date"];
+                string sMonth = date.Month.ToString();
+                string sYear = date.Year.ToString();
+
+                if (sMonth == month && sYear == year)
+                {
+                    Income MonthlyReportIncome = new Income();
+                    MonthlyReportIncome.Id = (int)reader["Id"];
+                    MonthlyReportIncome.Date = (DateTime)reader["Date"];
+                    MonthlyReportIncome.Amount = (decimal)reader["Amount"];
+                    MonthlyReportIncome.BankName = reader["BankName"].ToString();
+                    MonthlyReportIncome.CheckNo = reader["CheckNo"].ToString();
+                    MonthlyReportIncome.Particular = reader["Particular"].ToString();
+                    MonthlyReportIncome.PaymentType = reader["PaymentType"].ToString();
+
+                    monthlyReport.Add(MonthlyReportIncome);
+                }
+            }
+
+            return monthlyReport;
+        }
     }
 
     

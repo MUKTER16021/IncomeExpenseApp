@@ -5,60 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Save</h2>
+<link rel="stylesheet" href="~/css/StyleSheet.css" type="text/css" />
+<div class="container">
+    <form id="contact" action="" method="post">
+        <h3 align="center">Income Entry</h3>
+        <fieldset>
+            Date :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" id="theDate" name="Date" tabindex="1" required>
+        </fieldset>
+        <fieldset>
+            Payment Mode :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="PaymentType" value="Cash" id='cashRadio'> Cash &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" value="Check" name="PaymentType" id='checkRadio'>Check
+        </fieldset>
+        <fieldset>
+            <input placeholder="Enter amount" type="text" name="Amount" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+            <input placeholder="Bank name" type="text" name="BankName" class="txbx" hidden="true" />
+        </fieldset>
+        <fieldset>
+            <input placeholder="Check No" type="text" name="CheckNo" class="txbx" hidden="" />
+        </fieldset>
+        <fieldset>
+            <textarea placeholder="Type Particular here...." tabindex="3" name="Particular" required></textarea>
+        </fieldset>
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Save</button>
+        </fieldset>
 
-<h4>Income</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Save" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentType" class="control-label"></label>
-                <input asp-for="PaymentType" class="form-control" />
-                <span asp-validation-for="PaymentType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckNo" class="control-label"></label>
-                <input asp-for="CheckNo" class="form-control" />
-                <span asp-validation-for="CheckNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankName" class="control-label"></label>
-                <input asp-for="BankName" class="form-control" />
-                <span asp-validation-for="BankName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Particular" class="control-label"></label>
-                <input asp-for="Particular" class="form-control" />
-                <span asp-validation-for="Particular" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApproveStatus" class="control-label"></label>
-                <input asp-for="ApproveStatus" class="form-control" />
-                <span asp-validation-for="ApproveStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-            <h4>@ViewBag.Message</h4>
-        </form>
-    </div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Save">Back to List</a>
-</div>
+@section Scripts
+    {
+    <script>
+        $(function () {
+            $('#checkRadio').click(function () {
+                $('.txbx').attr('hidden', false);
+            });
+            $('#cashRadio').click(function () {
+                $('.txbx').attr('hidden', true);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+
+            var today = year + "-" + month + "-" + day;
+            $("#theDate").attr("value", today);
+        });
+    </script>
+}
 
