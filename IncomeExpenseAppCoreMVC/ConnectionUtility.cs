@@ -7,7 +7,7 @@ namespace IncomeExpenseAppCoreMVC
 {
     public static class ConnectionUtility
     {
-        public static string ConnectionString = @"Server=DESKTOP-C93SHIR\SQLSERVER;Database=IncomExpenseDB;Integrated Security=true";
+        public static string ConnectionString = @"Server=DESKTOP-UKNVMDC\MICROSOFTSQLSERV;Database=IncomExpenseDB;Integrated Security=true";
 
        
 

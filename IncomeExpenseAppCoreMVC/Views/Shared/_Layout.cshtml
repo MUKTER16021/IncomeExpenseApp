@@ -30,8 +30,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Income" asp-action="PendingList">Pending</a></li>
-                    <li><a asp-area="" asp-controller="Income" asp-action="Save">Income</a></li>
+
+                    <li><a asp-area="" asp-controller="Income" asp-action="Save">IncomeEntry</a></li>
+                    <li><a asp-area="" asp-controller="Income" asp-action="MonthlyIncome">MonthlyIncome</a></li>
+                    <li><a asp-area="" asp-controller="Expense" asp-action="Save">ExpenseEntry</a></li>
+                    <li><a asp-area="" asp-controller="Expense" asp-action="MonthlyExpense">MonthlyExpense</a></li>
+                    <li><a asp-area="" asp-controller="Income" asp-action="PendingList">PendingList</a></li>
+                    <li><a asp-area="" asp-controller="YearlyReport" asp-action="YearlyReport">YearlyReport</a></li>
                 </ul>
             </div>
         </div>
