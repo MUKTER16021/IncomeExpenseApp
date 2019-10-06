@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewData["Title"] = "YearlyReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> yearList = ViewBag.YearList;
+}
+
+<link rel="stylesheet" href="~/css/StyleForShow.css" type="text/css" />
+<div class="container">
+    <form id="contact" action="" method="post">
+
+
+        <div>
+            <div align="center"><h3 style="color:burlywood">Yearly Report</h3></div>
+            <div align="center">
+                <fieldset>
+                    Select Year :
+                    <select name="Year">
+                        <option> Select Year</option>
+                        @{
+                            if (yearList != null)
+                            {
+                                foreach (var year in yearList)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            }
+                        }
+                    </select>
+
+                </fieldset>
+            </div>
+            <div align="center">
+                <fieldset>
+                    <input type="submit" value="Show" id="contact-submit" data-submit="...Sending" />
+                </fieldset>
+            </div>
+        </div>
+        <div align="center">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Month</th>
+                        <th scope="col">Income</th>
+                        <th scope="col">Expense</th>
+                        <th scope="col">Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>January</td>
+                        <td>@ViewBag.JanuaryIncome</td>
+                        <td>@ViewBag.JanuaryExpense</td>
+                        <td>@ViewBag.JanuaryProfit</td>
+                    </tr>
+                    <tr>
+                        <td>February</td>
+                        <td>@ViewBag.FebruaryIncome</td>
+                        <td>@ViewBag.FebruaryExpense</td>
+                        <td>@ViewBag.FebruaryProfit</td>
+                    </tr>
+                    <tr>
+                        <td>March</td>
+                        <td>@ViewBag.MarchIncome</td>
+                        <td>@ViewBag.MarchExpense</td>
+                        <td>@ViewBag.MarchProfit</td>
+                    </tr>
+                    <tr>
+                        <td>April</td>
+                        <td>@ViewBag.AprilIncome</td>
+                        <td>@ViewBag.AprilExpense</td>
+                        <td>@ViewBag.AprilProfit</td>
+                    </tr>
+                    <tr>
+                        <td>May</td>
+                        <td>@ViewBag.MayIncome</td>
+                        <td>@ViewBag.MayExpense</td>
+                        <td>@ViewBag.MayProfit</td>
+                    </tr>
+                    <tr>
+                        <td>June</td>
+                        <td>@ViewBag.JuneIncome</td>
+                        <td>@ViewBag.JuneExpense</td>
+                        <td>@ViewBag.JuneProfit</td>
+                    </tr>
+                    <tr>
+                        <td>July</td>
+                        <td>@ViewBag.JulyIncome</td>
+                        <td>@ViewBag.JulyExpense</td>
+                        <td>@ViewBag.JulyProfit</td>
+                    </tr>
+                    <tr>
+                        <td>August</td>
+                        <td>@ViewBag.AugustIncome</td>
+                        <td>@ViewBag.AugustExpense</td>
+                        <td>@ViewBag.AugustProfit</td>
+                    </tr>
+                    <tr>
+                        <td>September</td>
+                        <td>@ViewBag.SeptemberIncome</td>
+                        <td>@ViewBag.SeptemberExpense</td>
+                        <td>@ViewBag.SeptemberProfit</td>
+                    </tr>
+                    <tr>
+                        <td>October</td>
+                        <td>@ViewBag.OctoberIncome</td>
+                        <td>@ViewBag.OctoberExpense</td>
+                        <td>@ViewBag.OctoberProfit</td>
+                    </tr>
+                    <tr>
+                        <td>November</td>
+                        <td>@ViewBag.NovemberIncome</td>
+                        <td>@ViewBag.NovemberExpense</td>
+                        <td>@ViewBag.NovemberProfit</td>
+                    </tr>
+                    <tr>
+                        <td>December</td>
+                        <td>@ViewBag.DecemberIncome</td>
+                        <td>@ViewBag.DecemberExpense</td>
+                        <td>@ViewBag.DecemberProfit</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>@ViewBag.YearlyIncome</td>
+                        <td>@ViewBag.YearlyExpense</td>
+                        <td>@ViewBag.YearlyProfit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div align="center">
+            <input type="submit" value="PDF" />
+        </div>
+    </form>
+</div>
