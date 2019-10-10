@@ -30,14 +30,13 @@ namespace IncomeExpenseAppCoreMVC.Controllers
             }
             else if (loginInfo.Designation == "Jr Accountant")
             {
+                return RedirectToAction("Save", "income");
+            }
+            else if(loginInfo.Designation=="Sr Accountant")
+            {
                 return RedirectToAction("PendingList", "Income");
             }
-            return RedirectToAction("Save", "income");
-
-            //when finish income and expense then comment out
-            //return View();
-
-
+            return View();
         }
     }
 }

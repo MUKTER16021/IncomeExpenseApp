@@ -57,6 +57,14 @@ namespace IncomeExpenseAppCoreMVC.Controllers
             return Json(message);
         }
 
+        //for junior
+        [HttpGet]
+        public IActionResult ViewPendingList()
+        {
+            List<Expense> pendingList = expenseManager.PendingList();
+            ViewBag.PendingList = pendingList;
+            return View();
+        }
 
         [HttpGet]
         public IActionResult MonthlyExpense()
@@ -67,6 +75,25 @@ namespace IncomeExpenseAppCoreMVC.Controllers
 
         [HttpPost]
         public IActionResult MonthlyExpense(string month, string year)
+        {
+            List<Expense> monthlyReport = expenseManager.MonthlyIncome(month, year);
+            decimal totalExpense = CalculateAmount.Calculate(monthlyReport);
+            ViewBag.TotalExpense = totalExpense;
+            ViewBag.MonthlyReport = monthlyReport;
+            ViewBag.YearList = expenseManager.GetYearList();
+            return View();
+        }
+
+        //for Junior
+        [HttpGet]
+        public IActionResult ViewMonthlyExpense()
+        {
+            ViewBag.YearList = expenseManager.GetYearList();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ViewMonthlyExpense(string month, string year)
         {
             List<Expense> monthlyReport = expenseManager.MonthlyIncome(month, year);
             decimal totalExpense = CalculateAmount.Calculate(monthlyReport);

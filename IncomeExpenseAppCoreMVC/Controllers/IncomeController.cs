@@ -37,14 +37,7 @@ namespace IncomeExpenseAppCoreMVC.Controllers
            ViewBag.PendingList = pendingList;
            // return View(pendingList);
            return View();
-        }
-
-        //[HttpPost]
-        //public IActionResult PendingList( Income incomeForApprove)
-        //{
-        //   incomeManager.UpdateApproveStatus(incomeForApprove.Id);
-        //   return RedirectToAction("PendingList");
-        //}
+        }      
 
         public JsonResult Approve(string[] values)
         {
@@ -55,12 +48,17 @@ namespace IncomeExpenseAppCoreMVC.Controllers
                 income.Id = Convert.ToInt32(id);
                 incomes.Add(income);
             }
-
             string message = incomeManager.UpdateApproveStatus(incomes);
-
             return Json(message);
         }
-
+        //for junior
+        [HttpGet]
+        public IActionResult ViewPendingList()
+        {
+            List<Income> pendingList = incomeManager.PendingList();
+            ViewBag.PendingList = pendingList;            
+            return View();
+        }
         [HttpGet]
         public IActionResult MonthlyIncome()
         {
@@ -79,7 +77,24 @@ namespace IncomeExpenseAppCoreMVC.Controllers
             return View();
         }
 
+        //for junior
+        [HttpGet]
+        public IActionResult ViewMonthlyIncome()
+        {
+            ViewBag.YearList = incomeManager.GetYearList();
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult ViewMonthlyIncome(string month, string year)
+        {
+            List<Income> monthlyReport = incomeManager.MonthlyIncome(month, year);
+            decimal totalIncome = CalculateAmount.Calculate(monthlyReport);
+            ViewBag.TotalIncome = totalIncome;
+            ViewBag.MonthlyReport = monthlyReport;
+            ViewBag.YearList = incomeManager.GetYearList();
+            return View();
+        }
 
 
     }

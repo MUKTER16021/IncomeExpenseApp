@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewData["Title"] = "MonthlyExpense";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "ViewMonthlyIncome";
+    Layout = "~/Views/Shared/LayoutForAnother.cshtml";
 }
 
 <link rel="stylesheet" href="~/css/StyleForShow.css" type="text/css" />
@@ -10,7 +10,7 @@
 
 
         <div>
-            <div align="center"><h3>Expense Monthly Report</h3></div>
+            <div align="center"><h3>Income Monthly Report</h3></div>
             <div align="center">
                 <fieldset>
 
@@ -54,9 +54,6 @@
                 </fieldset>
             </div>
         </div>
-
-
-
         <div align="center">
             <table class="table table-hover " id="pendingListTable">
                 <thead>
@@ -72,7 +69,7 @@
                     @{
                         int sl = 0;
 
-                        List<Expense> list = ViewBag.MonthlyReport;
+                        List<Income> list = ViewBag.MonthlyReport;
                         if (list != null && list.Count > 0)
                         {
                             foreach (var monthlyReport in list)
@@ -81,7 +78,7 @@
                                 <tr>
                                     <th scope="row">@sl</th>
 
-                                    <td>@monthlyReport.Date.ToShortDateString()</td>
+                                    <td>@monthlyReport.Date</td>
                                     <td>@monthlyReport.Amount</td>
                                     <td>@monthlyReport.PaymentType</td>
                                     <td>@monthlyReport.Particular</td>
@@ -96,7 +93,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p style="">Pending income not found</p>
+                                    <p style=""> Income not found</p>
                                 </td>
                             </tr>
                         }
@@ -104,10 +101,11 @@
                     }
                     <tr>
                         <td></td>
-                        <td>Total Expense</td>
-                        <td>@ViewBag.TotalExpense</td>
+                        <td>Total Income</td>
+                        <td> @ViewBag.TotalIncome</td>
                         <td></td>
                         <td></td>
+
                     </tr>
                 </tbody>
             </table>
@@ -121,4 +119,3 @@
         </div>
     </form>
 </div>
-

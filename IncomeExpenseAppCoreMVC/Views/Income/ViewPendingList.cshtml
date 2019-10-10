@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "ViewPendingList";
+    Layout = "~/Views/Shared/LayoutForAnother.cshtml";
+    List<Income> list = ViewBag.PendingList;
+}
+
+<link rel="stylesheet" href="~/css/StyleForShow.css" type="text/css" />
+<div class="container">
+    <form id="contact" action="" method="post">
+        <div>
+            <div align="center"><h3>Income Pending List</h3></div>
+        </div>
+
+
+
+        <div align="center">
+            <table class="table table-hover " id="pendingListTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#SL</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Cash/Check</th>
+                        <th scope="col">Particular</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @{
+                        int sl = 1;
+
+
+                        if (list != null && list.Count > 0)
+                        {
+                            foreach (var pendingList in list)
+                            {
+                                <tr>
+                                    <th scope="row">@sl</th>
+
+                                    <td>@pendingList.Date.ToShortDateString()</td>
+                                    <td>@pendingList.Amount</td>
+                                    <td>@pendingList.PaymentType</td>
+                                    <td>@pendingList.Particular</td>
+                                </tr>
+                                sl++;
+
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <p style="">Pending income not found</p>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+</div>
+
